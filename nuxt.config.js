@@ -1,4 +1,10 @@
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/spotify_playground/'
+  }
+} : {};
+
 export default {
   /*
   ** Nuxt rendering mode
@@ -67,5 +73,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-  }
+  },
+  ...routerBase
 }
