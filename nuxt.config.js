@@ -78,5 +78,9 @@ export default {
   */
   build: {
   },
-  ...routerBase
+  ...routerBase,
+  env: {
+    cb_url: process.env.DEPLOY_ENV === 'GH_PAGES' ? 'https://khalid-dabjan.github.io/spotify_playground/cb/' : 'http://localhost:3000/cb/',
+    spotify_client_id: process.env.DEPLOY_ENV === 'GH_PAGES' ? 'b35fc8e2256240018d0e472dd9cd1c30' : '646fd3131b9f4684891b250d9669ea03'
+  }
 }

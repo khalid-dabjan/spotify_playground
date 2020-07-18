@@ -1,39 +1,25 @@
 <script>
 import qs from 'qs'
+import ls from '../mixins/localStorage.js'
+import codeChallenge from '../mixins/codeChallenge.js'
 
 export default {
+  mixins: [ls, codeChallenge],
   methods: {
     login () {
+      const verifier = this.generateCodeVerifier()
       const params = {
         response_type: 'code',
-        client_id: 'b35fc8e2256240018d0e472dd9cd1c30',
-        redirect_uri: 'https://khalid-dabjan.github.io/spotify_playground/cb/',
+        client_id: process.env.spotify_client_id,
+        redirect_uri: process.env.cb_url,
         scope: 'user-follow-modify',
-        state: 'e21392da45dbf4',
-        code_challenge: this.generateCodeChallenge(this.generateCodeVerifier()),
+        state: verifier,
+        code_challenge: this.generateCodeChallenge(verifier),
         code_challenge_method: 'S256'
       }
-
+      this.store('verifier', verifier)
+      console.log(this.generateCodeChallenge(verifier))
       location.href = `https://accounts.spotify.com/authorize?${qs.stringify(params)}`
-    },
-    generateCodeVerifier () {
-      return this.generateRandomString(128)
-    },
-    generateRandomString (length) {
-      let text = ''
-      const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
-      for (let i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
-      }
-      return text
-    },
-    generateCodeChallenge (codeVerifier) {
-      // eslint-disable-next-line no-undef
-      return this.base64URL(CryptoJS.SHA256(codeVerifier))
-    },
-    base64URL (string) {
-      // eslint-disable-next-line no-undef
-      return string.toString(CryptoJS.enc.Base64).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
     }
   }
 }
