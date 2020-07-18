@@ -5,7 +5,18 @@
 ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 */
 module.exports = {
-  theme: {},
+  theme: {
+    fontFamily: {
+      body: ['Josefin Sans', 'sans-serif']
+    },
+    extend: {
+      colors: {
+        dark: '#121212',
+        green: '#1DB954',
+        'green-dark': '#1aa64b'
+      }
+    }
+  },
   variants: {},
   plugins: [],
   purge: {
