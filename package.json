@@ -10,8 +10,8 @@
     "serve": "nuxt serve",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "generate": "nuxt build && nuxt export",
-    "deploy": "gh-pages -d dist"
+    "generate": "DEPLOY_ENV=GH_PAGES nuxt build && nuxt export",
+    "deploy": "DEPLOY_ENV=GH_PAGES gh-pages -d dist"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
